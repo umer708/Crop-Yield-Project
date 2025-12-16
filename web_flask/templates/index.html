@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crop Yield Predictor</title>
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #a8edea, #fed6e3);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Form Container */
+        .container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        h1 {
+            text-align: center;
+            color: #333333;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+            color: #555555;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+            outline: none;
+        }
+
+        .checkbox-group {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-group label {
+            margin-left: 8px;
+            font-weight: normal;
+        }
+
+        button {
+            margin-top: 25px;
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #d4edda;
+            border: 1px solid #28a745;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            color: #155724;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        /* Responsive */
+        @media(max-width: 640px){
+            .container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌾 Crop Yield Predictor</h1>
+        <form method="POST">
+            <label for="region">Region:</label>
+            <select id="region" name="region" required>
+                <option value="0">North</option>
+                <option value="1">South</option>
+                <option value="2">East</option>
+                <option value="3">West</option>
+            </select>
+
+            <label for="soil">Soil Type:</label>
+            <select id="soil" name="soil" required>
+                <option value="0">Clay</option>
+                <option value="1">Loam</option>
+                <option value="2">Sandy</option>
+                <option value="3">Silt</option>
+            </select>
+
+            <label for="crop">Crop:</label>
+            <select id="crop" name="crop" required>
+                <option value="0">Barley</option>
+                <option value="1">Cotton</option>
+                <option value="2">Rice</option>
+                <option value="3">Soybean</option>
+                <option value="4">Wheat</option>
+            </select>
+
+            <label for="weather">Weather:</label>
+            <select id="weather" name="weather" required>
+                <option value="0">Cloudy</option>
+                <option value="1">Rainy</option>
+                <option value="2">Sunny</option>
+            </select>
+
+            <label for="rainfall">Rainfall (mm):</label>
+            <input type="number" step="0.1" id="rainfall" name="rainfall" required>
+
+            <label for="temperature">Temperature (°C):</label>
+            <input type="number" step="0.1" id="temperature" name="temperature" required>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="fertilizer" name="fertilizer">
+                <label for="fertilizer">Fertilizer Used</label>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="irrigation" name="irrigation">
+                <label for="irrigation">Irrigation Applied</label>
+            </div>
+
+            <label for="days">Number of Days:</label>
+            <input type="number" id="days" name="days" required>
+
+            <button type="submit">Predict Yield</button>
+        </form>
+
+        {% if result is not none %}
+        <div class="result">
+            🌱 Predicted Yield: {{ result }} tons/ha
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
